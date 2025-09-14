@@ -16,13 +16,24 @@ interface EmailParams {
 
 export async function sendEmail(params: EmailParams): Promise<boolean> {
   try {
-    await resend.emails.send({
+    const emailData: any = {
       to: params.to,
       from: params.from,
       subject: params.subject,
-      text: params.text,
-      html: params.html,
-    });
+    };
+
+    // Ensure we have either text or html content
+    if (params.html) {
+      emailData.html = params.html;
+    }
+    if (params.text) {
+      emailData.text = params.text;
+    } else if (!params.html) {
+      // If no text is provided and no HTML, use subject as fallback text
+      emailData.text = params.subject;
+    }
+
+    await resend.emails.send(emailData);
     return true;
   } catch (error) {
     console.error('Resend email error:', error);
