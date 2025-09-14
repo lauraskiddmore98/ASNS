@@ -1,0 +1,10 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/final-submit/route": "/api/final-submit",
+  "/api/step-submit/route": "/api/step-submit",
+  "/page": "/",
+  "/step-1/page": "/step-1",
+  "/step-2/page": "/step-2",
+  "/step-4/page": "/step-4",
+  "/success/page": "/success"
+}
