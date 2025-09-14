@@ -263,6 +263,7 @@ export default function Step3() {
           </Form>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
