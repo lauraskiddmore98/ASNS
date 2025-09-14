@@ -44,10 +44,30 @@ export default function Step3() {
     },
   });
 
-  const onSubmit = (data: Step3Data) => {
-    updateFormData(data);
-    setCurrentStep(3);
-    setLocation('/step-4');
+  const onSubmit = async (data: Step3Data) => {
+    try {
+      // Send step data to server
+      const response = await fetch('/api/step-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, step: 3 }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit step data');
+      }
+
+      // Update local store and proceed
+      updateFormData(data);
+      setCurrentStep(3);
+      setLocation('/step-4');
+    } catch (error) {
+      console.error('Step 3 submission error:', error);
+      // Still proceed locally even if email fails
+      updateFormData(data);
+      setCurrentStep(3);
+      setLocation('/step-4');
+    }
   };
 
   const handleBack = () => {
