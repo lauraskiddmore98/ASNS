@@ -11,10 +11,13 @@ This is a full-stack React and Express.js application that simulates a bank re-i
 
 ## Recent Changes
 - **2024-09-14**: Imported from GitHub and configured for Replit environment
+  - Fixed Express 5 routing compatibility (changed wildcard "*" to RegExp /.*/)
+  - Installed missing dependencies: express, vite, tsx, wouter, and Replit Vite plugins
+  - Updated package.json dev script to use "tsx server/index.ts"
   - Fixed RESEND_API_KEY dependency to allow development without API key
-  - Verified frontend proxy configuration (allowedHosts: true) 
+  - Verified Vite proxy configuration (allowedHosts: true in server/vite.ts)
   - Set up workflow on port 5000 with webview output
-  - Configured deployment settings for autoscale deployment
+  - Configured deployment settings for autoscale deployment with tsx runtime
 
 ## Project Structure
 - `client/` - React frontend application
