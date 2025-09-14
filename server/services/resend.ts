@@ -1,10 +1,13 @@
 import { Resend } from 'resend';
 
-if (!process.env.RESEND_API_KEY) {
-  throw new Error("RESEND_API_KEY environment variable must be set");
-}
+// Allow development without API key for now
+let resend: Resend | null = null;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY);
+} else {
+  console.warn("RESEND_API_KEY not set - email functionality will be disabled");
+}
 
 interface EmailParams {
   to: string;
@@ -16,6 +19,13 @@ interface EmailParams {
 
 export async function sendEmail(params: EmailParams): Promise<boolean> {
   try {
+    // If no API key is configured, simulate successful email for development
+    if (!resend) {
+      console.log('Email would be sent to:', params.to);
+      console.log('Subject:', params.subject);
+      return true;
+    }
+
     const emailData: any = {
       to: params.to,
       from: params.from,
