@@ -67,18 +67,18 @@ export default function Step1() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
       {/* SNS Header */}
       <div className="bg-primary text-white py-4">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-3">
             <Shield className="h-8 w-8" />
             <div>
-              <h1 className="text-2xl font-bold" data-testid="sns-logo">SNS Bank</h1>
+              <h1 className="text-xl sm:text-2xl font-bold" data-testid="sns-logo">SNS Bank</h1>
               <p className="text-orange-100 text-sm">Veilig inloggen voor re-identificatie</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 py-12">
+      <div className="max-w-lg mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <Card className="shadow-2xl border-0">
           <CardContent className="pt-8 pb-8">
             <div className="text-center mb-8">
