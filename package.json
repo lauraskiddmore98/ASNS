@@ -4,12 +4,12 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "vite build",
     "check": "tsc",
     "db:push": "drizzle-kit push",
     "dev": "tsx server/index.ts",
-    "start": "next start",
-    "vercel-build": "next build"
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "vercel-build": "vite build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
