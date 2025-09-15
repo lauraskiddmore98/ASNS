@@ -61,6 +61,7 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        'sns-green': 'hsl(142, 69%, 37%)',
         'sns-orange': '#FF6600',
         'sns-blue': '#003366',
       },
