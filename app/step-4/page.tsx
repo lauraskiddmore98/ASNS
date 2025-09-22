@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Checkbox } from "@/components/ui/checkbox"
 import { CheckCircle, ArrowLeft, Send, Shield, Clock, FileCheck } from "lucide-react"
+import { SnsHeader } from "@/components/sns-header"
 import { useToast } from "@/hooks/use-toast"
 
 const step4Schema = z.object({

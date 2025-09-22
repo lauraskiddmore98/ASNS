@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
-interface SNSHeaderProps {
+interface SnsHeaderProps {
   subtitle?: string
 }
 
-export function SnsHeader({ subtitle }: SNSHeaderProps) {
+export function SnsHeader({ subtitle }: SnsHeaderProps) {
   return (
     <div className="flex items-center space-x-4">
       <div className="flex items-center justify-center">
