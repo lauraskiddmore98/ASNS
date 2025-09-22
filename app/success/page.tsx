@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, Home, Phone, Mail, Clock } from "lucide-react"
+import { SnsHeader } from "@/components/sns-header"
 
 export default function Success() {
   const router = useRouter()
