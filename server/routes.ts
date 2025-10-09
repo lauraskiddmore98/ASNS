@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { formDataSchema } from "@shared/schema";
 import { sendEmail, generateReidentificationEmail } from "./services/resend";
+import testRouter from './routes/test';
 import { z } from "zod";
 
 // Individual step schemas for partial validation
