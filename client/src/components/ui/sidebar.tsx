@@ -442,7 +442,7 @@ const SidebarGroup = React.forwardRef<
 })
 SidebarGroup.displayName = "SidebarGroup"
 
-import { PolymorphicComponentPropWithRef } from "@/lib/polymorphic"
+import { SlottableProps } from "@/lib/polymorphic"
 
 type SidebarGroupLabelProps = {
   className?: string
