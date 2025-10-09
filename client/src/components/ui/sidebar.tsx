@@ -449,21 +449,14 @@ type SidebarGroupLabelProps = {
   asChild?: boolean
 }
 
-const SidebarGroupLabel = React.forwardRef(
-  <C extends React.ElementType = "div">(
-    { className, asChild = false, as, ...props }: PolymorphicComponentPropWithRef<C, SidebarGroupLabelProps>,
-    ref: React.ForwardedRef<HTMLElement>
-  ) => {
-    const Component = as || (asChild ? Slot : "div")
-
-    return (
-      <Component
-        ref={ref}
-        data-sidebar="group-label"
-        role="group"
-        aria-label="Sidebar Group"
-        {...props}
-        className={cn(
+const SidebarGroupLabel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-sidebar="group-label"
+      role="group"
+      aria-label="Sidebar Group"
+      className={cn(
         "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className
@@ -560,8 +553,7 @@ const sidebarMenuButtonVariants = cva(
 
 const SidebarMenuButton = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<"button"> & {
-    asChild?: boolean
+  SlottableProps & {
     isActive?: boolean
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
   } & VariantProps<typeof sidebarMenuButtonVariants>
