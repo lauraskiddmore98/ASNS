@@ -442,17 +442,22 @@ const SidebarGroup = React.forwardRef<
 })
 SidebarGroup.displayName = "SidebarGroup"
 
-const SidebarGroupLabel = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div"> & { asChild?: boolean }
->(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "div"
+type SidebarGroupLabelElement = React.ElementRef<"div">
+type SidebarGroupLabelProps = React.ComponentPropsWithoutRef<"div"> & {
+  asChild?: boolean
+}
 
-  return (
-    <Comp
-      ref={ref}
-      data-sidebar="group-label"
-      className={cn(
+const SidebarGroupLabel = React.forwardRef<SidebarGroupLabelElement, SidebarGroupLabelProps>(
+  ({ className, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div"
+
+    return (
+      <div
+        ref={ref}
+        data-sidebar="group-label"
+        role="group"
+        aria-label={props['aria-label'] || "Sidebar Group"}
+        className={cn(
         "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className
