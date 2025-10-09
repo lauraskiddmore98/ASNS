@@ -46,6 +46,7 @@
     "@replit/vite-plugin-dev-banner": "^0.1.1",
     "@replit/vite-plugin-runtime-error-modal": "^0.0.3",
     "@sendgrid/mail": "^8.1.5",
+    "@supabase/supabase-js": "^2.75.0",
     "@tanstack/react-query": "^5.87.4",
     "@types/better-sqlite3": "^7.6.12",
     "@types/express": "^5.0.3",

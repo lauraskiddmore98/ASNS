@@ -49,12 +49,17 @@ export default function Step4() {
     },
   })
 
+  const { saveToSupabase } = useFormSync();
+
   const onSubmit = async (data: Step4Data) => {
     setIsSubmitting(true)
 
     try {
       const completeData = { ...allData, ...data }
 
+      // Save to Supabase
+      await saveToSupabase();
+      
       const response = await fetch("/api/final-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
