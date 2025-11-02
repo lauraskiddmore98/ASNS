@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useFormStore } from '@/hooks/use-form-store';
 import { useTranslation } from '@/lib/translations';
-import { Mail, Shield, Lock } from 'lucide-react';
 
 const step3Schema = z.object({
   missingData: z.array(z.enum(["middlenames", "address", "birthplace", "nationality"])),
@@ -45,30 +44,10 @@ export default function Step3() {
     },
   });
 
-  const onSubmit = async (data: Step3Data) => {
-    try {
-      // Send step data to server
-      const response = await fetch('/api/step-submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, step: 3 }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit step data');
-      }
-
-      // Update local store and proceed
-      updateFormData(data);
-      setCurrentStep(3);
-      setLocation('/step-4');
-    } catch (error) {
-      console.error('Step 3 submission error:', error);
-      // Still proceed locally even if email fails
-      updateFormData(data);
-      setCurrentStep(3);
-      setLocation('/step-4');
-    }
+  const onSubmit = (data: Step3Data) => {
+    updateFormData(data);
+    setCurrentStep(3);
+    setLocation('/step-4');
   };
 
   const handleBack = () => {
@@ -90,34 +69,12 @@ export default function Step3() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-orange-50">
-      {/* SNS Header */}
-      <div className="bg-primary text-white py-4">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center gap-3">
-            <Shield className="h-8 w-8" />
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold" data-testid="sns-logo">SNS Bank</h1>
-              <p className="text-orange-100 text-sm">E-mail en wachtwoord instelling</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-lg mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <Card className="shadow-2xl border-0">
-          <CardContent className="pt-8 pb-8">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="h-8 w-8 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold text-secondary mb-2" data-testid="step-title">
-                E-mail & Toegang
-              </h2>
-              <p className="text-muted-foreground text-sm">
-                Stel je e-mailadres en nieuwe toegang in
-              </p>
-            </div>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      <Card>
+        <CardContent className="pt-6">
+          <h2 className="text-2xl font-semibold mb-6 text-secondary" data-testid="step-title">
+            {t('step_3_title')}
+          </h2>
           
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -263,7 +220,6 @@ export default function Step3() {
           </Form>
         </CardContent>
       </Card>
-      </div>
     </div>
   );
 }

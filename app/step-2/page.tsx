@@ -11,7 +11,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FileCheck, ArrowLeft, ArrowRight, CreditCard } from "lucide-react"
-import { SnsHeader } from "@/components/sns-header"
 import { useToast } from "@/hooks/use-toast"
 
 const step2Schema = z.object({
@@ -106,7 +105,15 @@ export default function Step2() {
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between mb-4">
-            <SnsHeader subtitle="Re-identificatie" />
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">SNS</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">SNS Bank</h1>
+                <p className="text-orange-600 text-sm">Re-identificatie</p>
+              </div>
+            </div>
           </div>
 
           {/* Progress Indicator */}

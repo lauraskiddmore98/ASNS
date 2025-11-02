@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, Home, Phone, Mail, Clock } from "lucide-react"
-import { SnsHeader } from "@/components/sns-header"
 
 export default function Success() {
   const router = useRouter()
@@ -22,7 +21,15 @@ export default function Success() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6">
-          <SnsHeader subtitle="Re-identificatie voltooid" />
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">SNS</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">SNS Bank</h1>
+              <p className="text-green-600 text-sm">Re-identificatie voltooid</p>
+            </div>
+          </div>
         </div>
       </header>
 

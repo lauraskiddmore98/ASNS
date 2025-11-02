@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Shield, Clock, FileCheck, Lock, Phone, CreditCard, User, CheckCircle } from "lucide-react"
-import { SnsHeader } from "@/components/sns-header"
 
 export default function Page() {
   const router = useRouter()
@@ -22,7 +21,15 @@ export default function Page() {
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <SnsHeader subtitle="Veilig bankieren" />
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-2xl">SNS</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">SNS Bank</h1>
+                <p className="text-orange-600 font-medium">Veilig bankieren</p>
+              </div>
+            </div>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-lg">🇳🇱 Nederlands</div>
             </div>
