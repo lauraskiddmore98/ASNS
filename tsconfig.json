@@ -3,6 +3,7 @@
     "client/src/**/*",
     "server/**/*",
     "shared/**/*",
+    "lib/**/*",
     ".next/types/**/*.ts"
   ],
   "exclude": [
@@ -33,12 +34,11 @@
       "vite/client"
     ],
     "paths": {
-      "@/*": [
-        "./client/src/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ]
+      "@/*": ["./*"],
+      "@shared/*": ["./shared/*"],
+      "@client/*": ["./client/src/*"],
+      "@server/*": ["./server/*"],
+      "@lib/*": ["./lib/*"]
     },
     "target": "ES2017",
     "allowJs": true,
